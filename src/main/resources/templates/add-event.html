@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Form</title>
+    <style>
+        /* General Page Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Form Container */
+        .form-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Form Group Styling */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        /* Submit Button Styling */
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 15px;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 14px;
+            }
+
+            .btn-primary {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h1>Add New Event</h1>
+
+    <div class="error-message" th:if="${status == 'no'}" th:text="${errorMessage}" style="color: red">
+        Event with this name or location already exists.
+    </div>
+
+    <form method="POST" action="/events/add">
+        <input type="hidden" name="eventId" th:value="${event != null ? event.id : null}" />
+
+        <div class="form-group">
+            <label for="name">Event Name</label>
+            <input type="text" class="form-control" id="name" name="name" th:value="${event != null ? event.name : ''}" required placeholder="Enter event name">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Event Description</label>
+            <textarea class="form-control" id="description" name="description" placeholder="Enter event description" th:text="${event != null ? event.description : ''}"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="popularityScore">Popularity Score</label>
+            <input type="number" class="form-control" id="popularityScore" name="popularityScore" th:value="${event != null ? event.popularityScore : ''}" placeholder="Enter event popularity score">
+        </div>
+
+        <div class="form-group">
+            <label for="locationId">Location</label>
+            <select class="form-control" id="locationId" name="locationId" required>
+                <option th:each="location : ${locations}"
+                        th:value="${location.id}"
+                        th:text="${location.name}"
+                        th:selected="${event != null && event.location != null && event.location.id == location.id}">
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn-primary">Save Event</button>
+    </form>
+</div>
+</body>
+</html>
