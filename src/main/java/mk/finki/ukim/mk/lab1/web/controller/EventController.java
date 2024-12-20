@@ -108,9 +108,11 @@ public String getEventsPage(@RequestParam(required = false) String error,
         if (principal instanceof UserDetails userDetails) {
             User user = userService.findByUsername(userDetails.getUsername());
             boolean isAdmin = user.getRole().equals(Role.ROLE_ADMIN);
+            boolean isModerator=user.getRole().equals(Role.ROLE_MODERATOR);
           System.out.println(isAdmin);
             model.addAttribute("user", user);
             model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("isModerator", isModerator);
         }
     }
 

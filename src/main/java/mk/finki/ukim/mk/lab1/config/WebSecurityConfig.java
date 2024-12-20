@@ -84,7 +84,12 @@ public class WebSecurityConfig {
                 .password(passwordEncoder.encode("admin"))
                 .roles("ADMIN")
                 .build();
+        UserDetails moderator = User.builder()
+                .username("moderator")
+                .password(passwordEncoder.encode("moderator"))
+                .roles("MODERATOR")
+                .build();
 
-        return new InMemoryUserDetailsManager(user1, user2, user3, admin);
+        return new InMemoryUserDetailsManager(user1, user2, user3, admin,moderator);
     }
 }

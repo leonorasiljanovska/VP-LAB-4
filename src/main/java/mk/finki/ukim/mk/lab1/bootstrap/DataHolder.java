@@ -32,11 +32,15 @@ public class DataHolder {
         User user1 = new User("elena.atanasoska", passwordEncoder.encode("ea"), "ROLE_USER");
         User user2 = new User("darko.sasanski", passwordEncoder.encode("ds"), "ROLE_USER");
         User user3 = new User("ana.todorovska", passwordEncoder.encode("at"), "ROLE_USER");
+        User user4 = new User("moderator", passwordEncoder.encode("moderator"), "ROLE_MODERATOR");
+        User user5= new User("admin", passwordEncoder.encode("admin"), "ROLE_ADMIN");
 
         // Save them in the repository (database)
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
+        userRepository.save(user4);
+        userRepository.save(user5);
     }
 
     //shtom se kreira instanca od klasata vednash da se povika ovoj metod

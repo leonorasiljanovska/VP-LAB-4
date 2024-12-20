@@ -135,10 +135,14 @@
         <span th:text="${event.name}"></span>
 
         <!-- Show Edit/Delete buttons only for admins -->
-        <div th:if="${isAdmin}">
+        <div th:if="${isAdmin or isModerator}">
             <a th:href="@{/events/edit-form/{eventId}(eventId=${event.id})}">Edit</a>
+
+        </div>
+        <div th:if="${isAdmin}">
             <a th:href="@{/events/delete/{id}(id=${event.id})}">Delete</a>
         </div>
+
 
         <!-- Booking Form -->
         <form th:action="@{/eventBooking}" method="get">
